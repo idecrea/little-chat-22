@@ -16,22 +16,24 @@ class UsuariosTest extends TestCase
 
     function setUp(): void
     {
-        $this->connection = new PDO("sqlite:littlechat22-test.sqlite", "root", "");
+        $this->connection = new PDO("sqlite:../littlechat22test.sqlite", "root", "");
         $this->miUsuario = new UsuariosValida($this->connection);
     }
 
 
     public function testNewUsuario(): void
     {
-        $accionSQL = true;
+        $this->assertTrue($this->resultado = $this->miUsuario->validaDatosRegistro("blabl","user2@correo.com","aaa","aaa"), implode(" - ",$this->miUsuario->getErrores()));        
+    }
 
-        //Primero miramos si los datos de entrada son válidos.
-        $this->assertTrue($this->resultado = $this->miUsuario->validaDatosRegistro("user","user@correo.com","123","123"), implode(" - ",$this->miUsuario->getErrores()));
+    public function testCompruebaEmailExiste(): void
+    {
+        $this->assertTrue($this->resultado = $this->miUsuario->validaDatosEmail("user@correo.com"), implode(" - ",$this->miUsuario->getErrores()));
         
-        //Si lo son, creamos nuevo registro
-        if($this->resultado && $accionSQL){
-            
-        }
+    }
+    public function testCompruebaContrasenyasCoinciden(): void
+    {
+        $this->assertTrue($this->resultado = $this->miUsuario->validaDatosContrasenyas("123","123"), implode(" - ",$this->miUsuario->getErrores()));
         
     }
 
