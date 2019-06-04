@@ -11,7 +11,7 @@
                 <p class="fuente-medium text-teal-800">Ahora puedes iniciar la sesión</p>
             </div>
             <div class="flex justify-center mt-16">
-                <a class=" flex text-teal-100 justify-center items-center h-12 w-56 bg-teal-800 hover:bg-teal-200 hover:text-teal-800 hover:opacity-100" href="index.php">Iniciar Sesión</a>
+                <a class=" flex text-teal-100 justify-center items-center h-12 w-56 bg-teal-800 hover:bg-teal-200 hover:text-teal-800 hover:opacity-100" href="login.php">Iniciar Sesión</a>
             </div>
         </section>
     </div>
