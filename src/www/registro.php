@@ -23,15 +23,15 @@ $usuarioDAO = new UsuariosDAO($connection);
 $error = [];
 
 //Obtención de modo
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+//if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $username = get_str_request('username');
         $email = get_str_request('email');
         $password = get_str_request('password');
         $password2 = get_str_request('password2');
 
-        $username = "aaaaaaa";
-        $email = "user3@email.com";
+        $username = "aaa4";
+        $email = "user4@email.com";
         $password = "123";
         $password2 = "123";
           
@@ -41,12 +41,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Obtenemos los errores
         $error = $usuarioValida->getErrores();
 
+
         // Tenemos ambos datos, pasamos a la última validación. 
         if(!count($error)){
-            $usuarioDAO->newUsuario($username,$email,$password);
+            $usuarioDAO->username = $username;
+            $usuarioDAO->contrasenya = $password;
+            $usuarioDAO->email = $email;
+            $usuarioDAO->created_at = date('Y-m-d H:i:s');
+            $usuarioDAO->token = bin2hex(openssl_random_pseudo_bytes(16));
+            $usuarioDAO->create();
             
             //Buscamos al usuario
-            $findByEmail = $usuarioDAO->findUsuarioByEmail($email);
+            $findByEmail = $usuarioDAO->findUsuarioByEmail();
           
             //Preparamos la ruta
             $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
@@ -67,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               
         }; 
             
-}
+//}
 
    
 
