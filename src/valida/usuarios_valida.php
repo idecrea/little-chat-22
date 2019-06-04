@@ -58,14 +58,22 @@ class UsuariosValida
     {
        //Limpiamos SIEMPRE los errores de la operación anterior.
        $this->error=[];
-
-       return 
+      
        //Validamos el campo de texto.
-       $this->validaUsername($susername) & 
+       $this->validaUsername($susername);
        //Validamos el campo de email.
-       $this->validaEmail($semail) &
+       $this->validaEmail($semail);
        //Validamos contraseñas
        $this->validaContrasenya($spassword,$spassword2);
+
+      if ( !isset( $this->error['username'] )) {
+         if($this->existeUsername($susername)) $this->error['username'] = "El usuario ya existe";
+      }
+      if ( !isset( $this->error['email'] )) {
+        if($this->existeEmail($semail)) $this->error['email'] = "El email ya existe";
+      }
+
+       return ( !count($this->error) ? True : False ); 
     }
     //======================================================================
     // FUNCIONES COMPROBAR CORREO - RECUPERACIÓN DE CONTRASEÑA
@@ -73,7 +81,7 @@ class UsuariosValida
     /**
      * Recibe correo, lo parsea y comprueba si existe.
      */
-    public function validaDatosCambiaContrasenya() : bool 
+    public function validaDatosEmail() : bool
     {
       //Limpiamos SIEMPRE los errores de la operación anterior.
       $this->error=[];
@@ -81,12 +89,17 @@ class UsuariosValida
       //Forzamos un string en el primer parámetro
       $email = (count($Args) > 0) ? (is_string($Args[0]) ? $Args[0] : '' ) : '';
       
-      return $this->validaEmail($email);
+      $this->validaEmail($email);
+      if ( !isset( $this->error['email'] )) {
+         if(!$this->existeEmail($email)) $this->error['email'] = "El email no existe";
+       }
+
+       return ( !count($this->error) ? True : False ); 
     }
     //======================================================================
     // FUNCIONES CAMBIAR CONTRASEÑA
     //======================================================================
-    public function validaDatosContrasenya() : bool 
+    public function validaDatosContrasenyas() : bool 
     {
       //Limpiamos SIEMPRE los errores de la operación anterior.
       $this->error=[];
@@ -109,9 +122,6 @@ class UsuariosValida
        if (strlen($username) < 4) $this->error['username'] = "Demasiado Corto!";
        if (trim($username) == '') $this->error['username'] = "Inserte texto";
        if (strlen($username) > 25) $this->error['username'] = "Demasiado Largo!";
-       if ( !isset( $this->error['username'] )) {
-          if($this->existeUsername($username)) $this->error['username'] = "El usuario ya existe";
-       }
        
        return ( !count($this->error) ? True : False ); 
       }
@@ -119,15 +129,13 @@ class UsuariosValida
       {
          if (trim($email) == '') $this->error['email'] = "Inserte email";
          if (filter_var($email, FILTER_VALIDATE_EMAIL) === FALSE) $this->error['email'] = "Inserta un correo válido!";
-         if ( !isset( $this->error['email'] )) {
-            if($this->existeEmail($email)) $this->error['email'] = "El email ya existe";
-         }
+
          return ( !count($this->error) ? True : False ); 
       }
       public function validaContrasenya(string $password, string $password2): bool 
       {
          if (trim($password) == '') $this->error['password'] = "Por favor introduce una contraseña";
-         if (trim($password2) == '') $this->error['password2'] = "Por favor introduce una contraseña";
+         if (trim($password2) == '') $this->error['password2'] = "Por favor repite la contraseña";
          
          //Si han introducido ambas, no se produce error, comprobamos que coinciden.
          if ( !isset( $this->error['password'] ) & !isset( $this->error['password2'] ) )
@@ -145,7 +153,7 @@ class UsuariosValida
 
          $existeUsername = $this->connection->prepare('SELECT * FROM Usuarios WHERE username = :username');
          $existeUsername->execute(array('username' => $username));
-         var_dump($existeUsername->fetch());
+         
          return ( $existeUsername->fetch() ? True : False );
       }
       private function existeEmail(string $email = ''): bool {
@@ -153,7 +161,7 @@ class UsuariosValida
          $existeEmail = $this->connection->prepare('SELECT * FROM Usuarios WHERE email = :email');
          $existeEmail->execute(array('email' => $email));
 
-         return ( count( $existeEmail->fetch() ) ? True : False );
+         return ( $existeEmail->fetch() ? True : False );
       }
       
       
