@@ -53,7 +53,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 $error['mensaje'] = "Tu cuenta ya estaba activa";
               } else if ( $findByToken['activo'] == 0 ){
                 //La cuenta no está activa, vamos a activarla.
-                $usuarioDAO->id = $findByToken['id'];
                 $usuarioDAO->activar();
     
                 $error['mensaje'] = "Acabas de confirmar tu cuenta!";

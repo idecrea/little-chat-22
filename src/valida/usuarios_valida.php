@@ -43,7 +43,7 @@ class UsuariosValida
     public function validaDatosRegistro() : bool 
     {
       $Args = func_get_args();
-      //Forzamos un string en el primer parámetro
+      //Forzamos un string en los parámetros
       $username = (count($Args) > 0) ? (is_string($Args[0]) ? $Args[0] : '' ) : '';
       $email = (count($Args) > 1) ? (is_string($Args[1]) ? $Args[1] : '' ) : '';
       $password = (count($Args) > 2) ? (is_string($Args[2]) ? $Args[2] : '' ) : '';
@@ -72,6 +72,40 @@ class UsuariosValida
       if ( !isset( $this->error['email'] )) {
         if($this->existeEmail($semail)) $this->error['email'] = "El email ya existe";
       }
+
+       return ( !count($this->error) ? True : False ); 
+    }
+    //======================================================================
+    // FUNCIONES LOGIN
+    //======================================================================
+    /**
+     * Función para comprobar datos antes de realizar un login.
+     * 
+     * @param {string} - Recibe username y lo valida, así como comprueba si existe o no.
+     * @param {string} - Recibe email y lo valida, así como comprueba si existe o no.
+     * @param {string} -  Recibe ambas contraseñas y devuelve si coinciden o no.
+     */
+    public function validaDatosLogin() : bool 
+    {
+      $Args = func_get_args();
+      //Forzamos un string en los parámetros
+      $username = (count($Args) > 0) ? (is_string($Args[0]) ? $Args[0] : '' ) : '';
+      $password = (count($Args) > 1) ? (is_string($Args[1]) ? $Args[1] : '' ) : '';
+      
+      return $this->parsedLogin($username,$password);
+    }
+   /**
+    * Función que recibe los datos parseados de validaDatosRegistro
+    */
+    protected function parsedLogin(string $susername = '', string $spassword = ''): bool
+    {
+       //Limpiamos SIEMPRE los errores de la operación anterior.
+       $this->error=[];
+      
+       //Validamos el campo de texto.
+       $this->validaUsername($susername);
+       //Validamos contraseña
+       if (trim($password) == '') $this->error['password'] = "Por favor introduce una contraseña";
 
        return ( !count($this->error) ? True : False ); 
     }
