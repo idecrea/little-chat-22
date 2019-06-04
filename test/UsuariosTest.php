@@ -4,7 +4,7 @@
 use PHPUnit\Framework\TestCase;
 
 // Importamos nuestro código.
-include_once('../valida/usuarios_valida.php');
+include_once('../src/valida/usuarios_valida.php');
 
 // Creamos el test
 class UsuariosTest extends TestCase
@@ -34,10 +34,14 @@ class UsuariosTest extends TestCase
     public function testCompruebaContrasenyasCoinciden(): void
     {
         $this->assertTrue($this->resultado = $this->miUsuario->validaDatosContrasenyas("123","123"), implode(" - ",$this->miUsuario->getErrores()));
-        
     }
 
+    public function testCompruebaToken(): void
+    {
+        $this->assertTrue($this->resultado = $this->miUsuario->validaToken("1_a"), implode(" - ",$this->miUsuario->getErrores()));
+    }
 
+    
     
     
 }

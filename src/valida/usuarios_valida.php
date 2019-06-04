@@ -110,6 +110,40 @@ class UsuariosValida
       
       return $this->validaContrasenya($password,$password2);
     }
+    //======================================================================
+    // FUNCION PARA VALIDAR TOKEN
+    //======================================================================
+    public function validaToken() : bool 
+    {
+      //Limpiamos SIEMPRE los errores de la operación anterior.
+      $this->error=[];
+      $Args = func_get_args();
+      //Forzamos un string en el primer parámetro
+      $token = (count($Args) > 0) ? (is_string($Args[0]) ? $Args[0] : '' ) : '';
+      
+      if ( trim($token) == '') $this->error['mensaje'] = "El Token está vacio";
+      //Primer filtro de errores - No está vacío
+      if ( !isset( $this->error['mensaje'] ))
+      {
+         $words = explode('_', $token);
+         if ( !is_array($words) ) $this->error['mensaje'] = "El formato no es válido";
+      } 
+      //Segundo filtro de errores - Tenemos un array con 2 valores.
+      if ( !isset( $this->error['mensaje'] ))
+      {
+         $token_str = array_pop($words);
+         $token_id = implode('_', $words);
+         if ( trim($token_str) == '') $this->error['mensaje'] = "El formato no es válido";
+         if ( trim($token_id) == '') $this->error['mensaje'] = "El formato no es válido";
+      }
+      //Tercer filtro de errores - Ambos valores no están vacíos
+      if ( !isset( $this->error['mensaje'] ))
+      {
+         //El ID no es un integer.
+         if( (int) $token_id <= 0 ) $this->error['mensaje'] = "El formato no es válido";
+      }
+      return ( !count($this->error) ? True : False ); 
+    }
 
 
     //======================================================================
