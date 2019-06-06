@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET'){
                 echo json_encode(array("code"=>"200","data"=>$data),JSON_PRETTY_PRINT);
             }else{
                 http_response_code(404);
-                echo json_encode(array("code"=>"404","err_msg"=>"No hay mensajes",JSON_PRETTY_PRINT));
+                echo json_encode(array("code"=>"404","msg"=>"No hay mensajes",JSON_PRETTY_PRINT));
             }
         
 
@@ -22,6 +22,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET'){
         $miConsulta = $miPDO->prepare('SELECT * FROM mensajes;');
         $miConsulta->execute();
         $data = $miConsulta->fetchAll(PDO::FETCH_ASSOC);
-        echo json_encode(array("code"=>"200","data"=>$data),JSON_PRETTY_PRINT);
+        echo json_encode(array("code"=>"200","msg"=>$data),JSON_PRETTY_PRINT);
     }
 }
