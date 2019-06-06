@@ -64,7 +64,21 @@ class MensajesDAO
            $param['id_mensaje'] = $this->id_mensaje;
 
        $stmt->execute($param);
+       
+      }
       
+      public function editMensaje(){
+         $stmt = $this->connection->prepare('UPDATE Mensajes SET texto = :texto WHERE id = :id');
+         $param['texto'] = $this->texto;
+         $param['id'] = $this->id;
+         
+         $stmt->execute($param);
+   }
+      public function likeMensaje(){
+         $stmt = $this->connection->prepare('UPDATE Mensajes SET likes = likes + 1 WHERE id = :id');
+         $param['id'] = $this->id;
+         
+         $stmt->execute($param);
    }
 
    public function delete()
