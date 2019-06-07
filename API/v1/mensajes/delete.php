@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET'){
 
 
     // Validaciones
-    $mensajesValida->validaExisteId($id);
+    $mensajesValida->validaId($id);
     
     // Obtenemos los errores
     $error = $mensajesValida->getErrores();
