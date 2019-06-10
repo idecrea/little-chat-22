@@ -36,7 +36,7 @@ class MensajesValida
       //Forzamos un string en el primer parámetro
       $texto = (count($Args) > 0) ? (is_string($Args[0]) ? $Args[0] : '' ) : '';
       $email = (count($Args) > 1) ? (is_string($Args[1]) ? $Args[1] : '' ) : '';
-      $id_mensaje = (count($Args) > 2) ? (is_string($Args[2]) ? $Args[2] : '' ) : '';
+      $id_mensaje = (count($Args) > 2) ? (is_string($Args[2]) ? $Args[2] : (is_integer($Args[2])?$Args[2]:'') ) : '';
       
       return $this->validaParsed($texto,$email,$id_mensaje);
     }
@@ -52,8 +52,10 @@ class MensajesValida
        if ( !isset( $this->error['email'] )) {
          if(!$this->existeEmail($semail)) $this->error['email'] = "El email no existe";
       }
+      
       if(strlen($id_mensaje)>0){
          $this->validaIdMensaje($id_mensaje);
+         //var_dump($this->existeMensajePadre((int)$id_mensaje));
          if ( !isset( $this->error['id'] ))
          if(!$this->existeMensajePadre((int)$id_mensaje)) $this->error['id'] = "No se puede responder a este mensaje";
       }
@@ -72,7 +74,7 @@ class MensajesValida
       //Forzamos un string en el primer parámetro
       $texto = (count($Args) > 0) ? (is_string($Args[0]) ? $Args[0] : '' ) : '';
       $email = (count($Args) > 1) ? (is_string($Args[1]) ? $Args[1] : '' ) : '';
-      $id = (count($Args) > 2) ? (is_string($Args[2]) ? $Args[2] : '' ) : '';
+      $id = (count($Args) > 2) ? (is_string($Args[2]) ? $Args[2] : (is_integer($Args[2]) ? $Args[2] : '') ) : '';
 
       $this->validaTexto($texto);
       $this->validaId($id);

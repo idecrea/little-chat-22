@@ -4,7 +4,7 @@ $error = [];
 include_once("../../../src/valida/mensajes_valida.php");
 include_once("../../../src/dao/mensajes_dao.php");
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+if ($_SERVER['REQUEST_METHOD'] === 'PUT'){
 
     $values = json_decode(file_get_contents('php://input'),True);
 
@@ -35,13 +35,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     
     if( !count($error) ){
         if($modo == "edit"){
-            $mensajeDAO->id = $id;
+            $mensajeDAO->id = (int)$id;
             $mensajeDAO->texto = $texto;
             $mensajeDAO->editMensaje();
             
             $data = array("code"=>"200","msg"=>"Editado");       
         }else if ($modo == "like"){
-            $mensajeDAO->id = $id;
+            $mensajeDAO->id = (int)$id;
             $mensajeDAO->likeMensaje();
             $data = array("code"=>"200","msg"=>"Ok +1");       
         }else{
