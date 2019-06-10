@@ -4,7 +4,7 @@ $error = [];
 include_once("../../../src/valida/mensajes_valida.php");
 include_once("../../../src/dao/mensajes_dao.php");
 
-if ($_SERVER['REQUEST_METHOD'] === 'GET'){
+if ($_SERVER['REQUEST_METHOD'] === 'DELETE'){
 
     //$values = json_decode(file_get_contents('php://input'),True);
 
@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET'){
 
 
     // Validaciones
-    $mensajesValida->validaId($id);
+    $mensajesValida->validaDatosId($id);
     
     // Obtenemos los errores
     $error = $mensajesValida->getErrores();
