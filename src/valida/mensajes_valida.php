@@ -108,6 +108,23 @@ class MensajesValida
       
       return (!count($this->error) ? True : False); 
     }
+   public function validaDatosId() : bool 
+   {
+      //Limpiamos SIEMPRE los errores de la operación anterior.
+      $this->error=[];
+      
+      $Args = func_get_args();
+
+      //Forzamos un string en el primer parámetro
+      $id = (count($Args) > 0) ? (is_string($Args[0]) ? $Args[0] : '' ) : '';
+
+      $this->validaId($id);
+
+      if ( !isset( $this->error['id'] ))
+      if(!$this->existeMensaje((int)$id)) $this->error['id'] = "No existe ese Mensaje";
+      
+      return (!count($this->error) ? True : False); 
+    }
 
 
 
