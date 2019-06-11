@@ -4,6 +4,7 @@ include_once('../include/mailing.php');
 include_once('../valida/usuarios_valida.php');
 include_once('../dao/usuarios_dao.php');
 include_once('../../head.php');
+include_once('../../menu.php');
 
 $connection = null;
     
@@ -70,7 +71,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
             //Lo enviamos
             enviar_correo($from,$to,$to_name,$body,$subject);
-              
+            
+            //Redireccionamos a registro completo
+            header('Location: http://localhost:8000/src/www/registro-completo.php');
+
+            die();
               
         }; 
             
@@ -78,9 +83,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 ?>
     <div id="app" class="fuente-bold">
-        <nav class="bg-teal-800 h-16">
-            Menu
-        </nav>
         <form method="post" action="" class="h-screen bg-teal-400 m-0">
             <h1 class="text-center text-teal-800 m-0 pt-16">Registro</h1>
             <div class="flex justify-center mt-10">
