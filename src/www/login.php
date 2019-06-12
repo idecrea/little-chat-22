@@ -111,7 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
         </div>
     </form>
     <div class="flex justify-center mt-5">
-        <a class="text-teal-800 fuente" href="">Recuperar Contraseña</a>
+        <a class="text-teal-800 fuente" href="recuperar_contrasenya.php">Recuperar Contraseña</a>
     </div>
     <div class="flex justify-center mt-16">
         <a class=" flex text-teal-100 justify-center items-center h-12 w-56 bg-teal-800 hover:bg-teal-100 hover:text-teal-800 hover:opacity-100" href="registro.php">Registrarse</a>

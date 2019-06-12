@@ -4,6 +4,7 @@ include_once('../include/mailing.php');
 include_once('../valida/usuarios_valida.php');
 include_once('../dao/usuarios_dao.php');
 include_once('../../head.php');
+include_once('../../menu.php');
 
 $connection = null;
     
@@ -35,6 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Obtenemos los errores
         $error = $usuarioValida->getErrores();
 
+        var_dump($error);
 
         // Tenemos ambos datos, pasamos a la última validación. 
         if(!count($error)){
@@ -68,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                   enviar_correo($from,$to,$to_name,$body,$subject);
 
                   //Lo redirigimos al... ok
-                  header('Location: ../www/ok-recuperar-contrasenya.php');
+                  header('Location: ok-recuperar-contrasenya.php');
                   
                 }
               
@@ -77,6 +79,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 ?>
+        <section class="h-screen bg-teal-400 m-0">
+                <h1 class="text-center text-teal-800 m-0 pt-16 leading-snug">Recuperar <br>Contraseña</h1>
+                <form action="" method="post">
+                        <div class="flex justify-center mt-10">
+                                <input type="text" class="fuente-medium text-center h-12 w-56 bg-teal-100 placeholder1 border-2 border-teal-100 focus:border-teal-800 focus:text-teal-800" placeholder="Introduce tu Email" name="email">
+                        </div>
+
+                        <!-- Error - No existe un usuario con este email -->
+                        <?php if(isset($error['email'])) : ?>
+                                <div class="flex justify-center mt-4">
+                                        <p class="fuente-bold text-red-700 text-center"><?= $error['email'] ?></p>
+                                </div>
+                        <?php endif; ?>
+
+                        <!-- Error Todos los campos son obligatorios
+                                <div class="flex justify-center mt-5">
+                                        <p class="fuente-bold text-red-700">Todos los campos son obligatorios</p>
+                                </div>
+                         -->
+
+                        <div class="flex justify-center mt-16">
+                                <input type="submit" class="fuente-bold text-center h-12 w-56 bg-teal-800 text-teal-100 hover:bg-teal-200 hover:text-teal-800" value="Enviar">
+                        </div>
+        
+                </form>
+        </section>
+</div>
+</body>
+</html>
     
    
 

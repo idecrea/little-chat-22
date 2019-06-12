@@ -2,11 +2,13 @@
 include_once('../include/funciones.php');
 include_once('../valida/usuarios_valida.php');
 include_once('../dao/usuarios_dao.php');
+include_once('../../head.php');
+include_once('../../menu.php');
 
 $connection = null;
     
-//session_start();
-//if (isset($_SESSION['email'])) header('Location: ../www/index.php');
+session_start();
+if (isset($_SESSION['email'])) header('Location: login.php');
 
 //-----------------------------------------------------
 // Logica
@@ -93,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $usuarioDAO->updateCambiaContrasenya();
 
                 //Lo redirigimos al... ok
-                header('Location: ../www/ok-cambiar-contrasenya.php');
+                header('Location: ok-cambiar-contrasenya.php');
               }
             }
               
@@ -104,9 +106,50 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 
 
-<!-- El token que recibimos por GET, mételo en un input hidden, 
+    <!-- El token que recibimos por GET, mételo en un input hidden, 
       vamos a usarlo para identificar al usuario, no vamos a pasarle el email -->
+        <section class="h-screen bg-teal-400 m-0">
+            <h1 class="text-center text-teal-800 m-0 pt-16 leading-snug">Cambiar <br>Contraseña</h1>
+            <form action="" method="post">
+                <?php if(isset($token)) : ?>
+                    <input type="hidden" name="token" value="<?= $token ?>">
+                <?php endif; ?>
+                <div class="flex justify-center mt-10">
+                    <input type="text" class="fuente-medium text-center h-12 w-56 bg-teal-100 placeholder1 border-2 border-teal-100 focus:border-teal-800 focus:text-teal-800" placeholder="Email" name="email">
+                </div>
 
+                <!-- Error - No existen usuarios con este email -->
+                    <div class="flex justify-center mt-4 mb-4">
+                        <p class="fuente-bold text-red-700">No existe ningún usuario con este email</p>
+                    </div>
+
+                <div class="flex justify-center mt-5">
+                    <input type="text" class="fuente-medium text-center h-12 w-56 bg-teal-100 placeholder1 border-2 border-teal-100 focus:border-teal-800 focus:text-teal-800" placeholder="Nueva Contraseña" name="password">
+                </div>
+                <div class="flex justify-center mt-5">
+                    <input type="text" class="fuente-medium text-center h-12 w-56 bg-teal-100 placeholder1 border-2 border-teal-100 focus:border-teal-800 focus:text-teal-800" placeholder="Confirmar Nueva Contraseña" name="password2">
+                </div>
+
+                <!-- Error - Las contrasenyas deben ser idénticas -->
+                <div class="flex justify-center mt-5 mb-4">
+                    <p class="fuente-bold text-red-700">Las contraseñas deben ser idénticas</p>
+                </div>
+
+                <!-- Error Todos los campos son obligatorios -->
+                <div class="flex justify-center mt-5">
+                    <p class="fuente-bold text-red-700">Todos los campos son obligatorios</p>
+                </div>
+
+                <div class="flex justify-center mt-10">
+                    <input type="submit" class="fuente-bold text-center h-12 w-56 bg-teal-800 text-teal-100 hover:bg-teal-200 hover:text-teal-800" value="Cambiar Contraseña">
+                </div>
+            
+            </form>
+
+        </section>
+    </div>
+</body>
+</html>
 
    
 

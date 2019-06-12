@@ -1,6 +1,6 @@
 <?php
-    require_once('head.php');
-    require_once('menu.php');
+    require_once('../../head.php');
+    require_once('../../menu.php');
 ?>
 
         <section class="h-screen bg-teal-400 m-0">
