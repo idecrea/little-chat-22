@@ -141,8 +141,15 @@ class UsuariosValida
       //Forzamos un string en el primer parámetro
       $password = (count($Args) > 0) ? (is_string($Args[0]) ? $Args[0] : '' ) : '';
       $password2 = (count($Args) > 1) ? (is_string($Args[1]) ? $Args[1] : '' ) : '';
+      $email = (count($Args) > 2) ? (is_string($Args[2]) ? $Args[2] : '' ) : '';
       
-      return $this->validaContrasenya($password,$password2);
+      $this->validaContrasenya($password,$password2);
+      $this->validaEmail($email);
+      if ( !isset( $this->error['email'] )) {
+         if(!$this->existeEmail($email)) $this->error['email'] = "El email no existe";
+      }
+
+      return ( !count($this->error) ? True : False ); 
     }
     //======================================================================
     // FUNCION PARA VALIDAR TOKEN

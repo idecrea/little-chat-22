@@ -59,6 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $token = get_str_request('token');
         $password = get_str_request('password');
         $password2 = get_str_request('password2');
+        $email = get_str_request('email');
                   
         // Validacion del Token (Por si acaso nos lo cambian...)
         $usuarioValida->validaToken($token);
@@ -74,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           $token_id = implode('_', $words);
           
           //Revisamos que las contraseñas coinciden
-          $usuarioValida->validaDatosContrasenyas($password,$password2);
+          $usuarioValida->validaDatosContrasenyas($password,$password2,$email);
           // Obtenemos los errores
           $error = $usuarioValida->getErrores();
           
@@ -96,6 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 //Lo redirigimos al... ok
                 header('Location: ok-cambiar-contrasenya.php');
+
               }
             }
               
