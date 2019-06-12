@@ -57,6 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $token = get_str_request('token');
         $password = get_str_request('password');
         $password2 = get_str_request('password2');
+        $email = get_str_request('email');
                   
         // Validacion del Token (Por si acaso nos lo cambian...)
         $usuarioValida->validaToken($token);
@@ -72,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           $token_id = implode('_', $words);
           
           //Revisamos que las contraseñas coinciden
-          $usuarioValida->validaDatosContrasenyas($password,$password2);
+          $usuarioValida->validaDatosContrasenyas($password,$password2,$email);
           // Obtenemos los errores
           $error = $usuarioValida->getErrores();
           
@@ -87,13 +88,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               if($findByToken === false){
                   // El token no existe, le enviamos un mensaje falso.
                   $error['mensaje'] = "El token ha caducado";               
-              } else {
-                $usuarioDAO->id = $findByToken['id'];
-                $usuarioDAO->contrasenya = $password;
-                $usuarioDAO->updateCambiaContrasenya();
+                } else {
+                  // El correo que nos han pasado, no es el mismo que el asociado a ese token.
+                  if($email != $findByToken['email']){
+                    $error['mensaje'] = "El correo no es correcto";
+                  }else{
 
-                //Lo redirigimos al... ok
-                header('Location: ../www/ok-cambiar-contrasenya.php');
+                    $usuarioDAO->id = $findByToken['id'];
+                    $usuarioDAO->contrasenya = $password;
+                    $usuarioDAO->updateCambiaContrasenya();
+                    
+                    //Lo redirigimos al... ok
+                    header('Location: ../www/ok-cambiar-contrasenya.php');
+                  }
               }
             }
               
