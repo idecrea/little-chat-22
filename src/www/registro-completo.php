@@ -3,7 +3,7 @@
     require_once('../../menu.php');
 ?>
 
-        <section class="h-screen bg-teal-400 m-0">
+        <section class="h-screen bg-teal-400 m-0 overflow-scroll">
             <h1 class="text-center text-teal-800 m-0 pt-16">Bienvenido!</h1>
             <div class="flex justify-center mt-4">
                 <p class="fuente-medium text-teal-800">Ahora puedes iniciar la sesión</p>

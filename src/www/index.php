@@ -7,7 +7,7 @@
 
 ?>
 
-        <section class="h-screen bg-teal-100 m-0 flex items-center flex-col fuente-medium">
+        <section class="h-screen bg-teal-100 m-0 flex items-center flex-col fuente-medium overflow-scroll">
             <div class="bg-teal-200 w-11/12 mt-4 px-2 text-teal-800">
                 <div class="flex flex-row items-center mt-2">
                     <img class="w-12 h-12" src="img/circulo.png" alt="">

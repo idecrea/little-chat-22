@@ -85,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 
 ?>
 
-<section class="h-screen bg-teal-400 m-0">
+<section class="h-screen bg-teal-400 m-0 overflow-scroll">
     <form action="" method="post">
         <h1 class="text-center text-teal-800 m-0 pt-16">Login</h1>
         <div class="flex justify-center mt-10">

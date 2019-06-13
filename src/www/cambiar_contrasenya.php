@@ -112,7 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <!-- El token que recibimos por GET, mételo en un input hidden, 
       vamos a usarlo para identificar al usuario, no vamos a pasarle el email -->
-        <section class="h-screen bg-teal-400 m-0">
+        <section class="h-screen bg-teal-400 m-0 overflow-scroll">
             <h1 class="text-center text-teal-800 m-0 pt-16 leading-snug">Cambiar <br>Contraseña</h1>
             <form action="" method="post">
                 <?php if(isset($token)) : ?>

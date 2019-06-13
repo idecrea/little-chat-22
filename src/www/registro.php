@@ -83,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 ?>
     <div id="app" class="fuente-bold">
-        <form method="post" action="" class="h-screen bg-teal-400 m-0">
+        <form method="post" action="" class="h-screen bg-teal-400 m-0 overflow-scroll">
             <h1 class="text-center text-teal-800 m-0 pt-16">Registro</h1>
             <div class="flex justify-center mt-10">
                 <input type="text" class="fuente-medium text-center h-12 w-56 bg-teal-100 placeholder1 border-2 border-teal-100 focus:border-teal-800 focus:text-teal-800" placeholder="Nombre de usuario" name="username">

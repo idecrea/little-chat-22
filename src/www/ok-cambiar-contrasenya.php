@@ -2,7 +2,7 @@
     require_once('../../head.php');
     require_once('../../menu.php');
 ?>
-        <section class="h-screen bg-teal-400 m-0">
+        <section class="h-screen bg-teal-400 m-0 overflow-scroll">
             <h1 class="text-center text-teal-800 m-0 pt-16 leading-snug">¡Felicidades!</h1>
             <div class="flex justify-center mt-8">
                 <p class="fuente-medium text-teal-800 text-center mx-12 leading-normal">La contraseña fue cambiada con éxito. Ahora puedes iniciar sesión</p>
