@@ -79,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 ?>
-        <section class="h-screen bg-teal-400 m-0">
+        <section class="h-screen bg-teal-400 m-0 overflow-scroll">
                 <h1 class="text-center text-teal-800 m-0 pt-16 leading-snug">Recuperar <br>Contraseña</h1>
                 <form action="" method="post">
                         <div class="flex justify-center mt-10">

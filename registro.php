@@ -3,7 +3,7 @@
     require_once('menu.php');
 ?>
 
-        <section class="h-screen bg-teal-400 m-0">
+        <section class="h-screen bg-teal-400 m-0 overflow-scroll pb-8">
             <h1 class="text-center text-teal-800 m-0 pt-16">Registro</h1>
             <div class="flex justify-center mt-10">
                 <input type="text" class="fuente-medium text-center h-12 w-56 bg-teal-100 placeholder1 border-2 border-teal-100 focus:border-teal-800 focus:text-teal-800" placeholder="Nombre de usuario">
