@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET'){
     if(isset($_REQUEST['id'])){
         $id = (int)$_REQUEST['id'];
             if($id>0){
-                $miConsulta = $miPDO->prepare('SELECT * FROM mensajes WHERE id = :id;');
+                $miConsulta = $miPDO->prepare('SELECT m.*,u.username FROM mensajes as m, usuarios as u WHERE m.id_usuario=:id and u.id=:id;');
                 $miConsulta->execute(array('id'=>$_REQUEST["id"]));
                 $data = $miConsulta->fetch(PDO::FETCH_ASSOC);
                 echo json_encode(array("code"=>"200","data"=>$data),JSON_PRETTY_PRINT);
@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET'){
         
 
     }else{
-        $miConsulta = $miPDO->prepare('SELECT * FROM mensajes;');
+        $miConsulta = $miPDO->prepare('SELECT m.*,u.username FROM mensajes as m, usuarios as u WHERE m.id_usuario=u.id;');
         $miConsulta->execute();
         $data = $miConsulta->fetchAll(PDO::FETCH_ASSOC);
         echo json_encode(array("code"=>"200","msg"=>$data),JSON_PRETTY_PRINT);

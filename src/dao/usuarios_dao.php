@@ -154,11 +154,11 @@ class UsuariosDAO
     /**
      * Función principal del Login
      */
-    public function findUsuarioByUserPassword()
+    public function findUsuarioByUser()
     {
         //Adquirimos el usuario
-        $stmt = $this->connection->prepare('SELECT * FROM Usuarios WHERE username = :username AND password = :password');
-        $stmt->execute(array('username' => $this->username, 'password' => $this->password));
+        $stmt = $this->connection->prepare('SELECT * FROM Usuarios WHERE username = :username');
+        $stmt->execute(array('username' => $this->username));
 
        return $stmt->fetch(); 
     }
