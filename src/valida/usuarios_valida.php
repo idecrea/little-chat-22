@@ -105,7 +105,7 @@ class UsuariosValida
        //Validamos el campo de texto.
        $this->validaUsername($susername);
        //Validamos contraseña
-       if (trim($password) == '') $this->error['password'] = "Por favor introduce una contraseña";
+       if (trim($spassword) == '') $this->error['password'] = "Por favor introduce una contraseña";
 
        return ( !count($this->error) ? True : False ); 
     }

@@ -67,7 +67,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Obtenemos los errores
         $error = $usuarioValida->getErrores();
 
-
         // Si no hay error en el token, vamos a revisar las contrasenyas
         if(!count($error)){
           $words = explode('_', $token);
@@ -78,7 +77,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           $usuarioValida->validaDatosContrasenyas($password,$password2,$email);
           // Obtenemos los errores
           $error = $usuarioValida->getErrores();
-          
+        
+          var_dump($error);
           // Si no hay error en las contrasenyas, entramos.
           if(!count($error)){
             
@@ -95,10 +95,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $usuarioDAO->contrasenya = $password;
                 $usuarioDAO->updateCambiaContrasenya();
 
-                //Lo redirigimos al... ok
-                header('Location: ok-cambiar-contrasenya.php');
 
               }
+
+                //Lo redirigimos al... ok
+                header('Location: ok-cambiar-contrasenya.php');
+                die();
             }
               
               
@@ -121,9 +123,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
 
                 <!-- Error - No existen usuarios con este email -->
-                    <div class="flex justify-center mt-4 mb-4">
-                        <p class="fuente-bold text-red-700">No existe ningún usuario con este email</p>
-                    </div>
+                    <?php if(isset($error['email'])) : ?>
+                        <div class="flex justify-center mt-4 mb-4">
+                            <p class="fuente-bold text-red-700"><?= $error['email'] ?></p>
+                        </div>
+                    <?php endif; ?>
 
                 <div class="flex justify-center mt-5">
                     <input type="text" class="fuente-medium text-center h-12 w-56 bg-teal-100 placeholder1 border-2 border-teal-100 focus:border-teal-800 focus:text-teal-800" placeholder="Nueva Contraseña" name="password">
@@ -133,14 +137,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
 
                 <!-- Error - Las contrasenyas deben ser idénticas -->
-                <div class="flex justify-center mt-5 mb-4">
-                    <p class="fuente-bold text-red-700">Las contraseñas deben ser idénticas</p>
-                </div>
 
-                <!-- Error Todos los campos son obligatorios -->
+                <?php if(isset($error['password2']) && $error['password2'] === 'Las contraseñas no coinciden') :?>
+                    <div class="flex justify-center mt-5 mb-4">
+                        <p class="fuente-bold text-red-700">Las contraseñas deben ser idénticas</p>
+                    </div>
+                <?php endif; ?>
+
+                <!-- Error Todos los campos son obligatorios
                 <div class="flex justify-center mt-5">
                     <p class="fuente-bold text-red-700">Todos los campos son obligatorios</p>
-                </div>
+                </div>-->
 
                 <div class="flex justify-center mt-10">
                     <input type="submit" class="fuente-bold text-center h-12 w-56 bg-teal-800 text-teal-100 hover:bg-teal-200 hover:text-teal-800" value="Cambiar Contraseña">

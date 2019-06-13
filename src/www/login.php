@@ -31,7 +31,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
     $username = get_str_request('username');
     $password = get_str_request('password');
 
-        
+    var_dump($password);
+
     // Validaciones
     $usuarioValida->validaDatosLogin($username,$password);
     
@@ -43,10 +44,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
     if(!count($error))
     {
         $usuarioDAO->username = $username;
-        $usuarioDAO->contrasenya = $password;
+        //$usuarioDAO->contrasenya = $password;
         
         //Buscamos al usuario
-        $findByEmail = $usuarioDAO->findUsuarioByUserPassword();
+        $findByEmail = $usuarioDAO->findUsuarioByUser();
         
         //No lo hemos encontrado?
         if($findByEmail === false){
@@ -55,8 +56,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
         } 
         else 
         {
+            var_dump($password);
             //Lo hemos encontrado, pero su contraseña es erronea
-            if(!password_verify($password, $findByEmail['password']))
+            if(!password_verify($password, $findByEmail['contrasenya']))
             {
                 $error['password'] = "El usuario o la contraseña son incorrectos";
                 $error['username'] = $error['password'];
@@ -68,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
                 {
                 // Iniciamos sesión y le mandamos a narnia
                     $_SESSION['email'] = $findByEmail['email'];
-                    header('Location: ../www/narnia.php');
+                    header('Location: index.php');
                     die();
                 }
                 else
@@ -84,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 ?>
 
 <section class="h-screen bg-teal-400 m-0">
-    <form action="">
+    <form action="" method="post">
         <h1 class="text-center text-teal-800 m-0 pt-16">Login</h1>
         <div class="flex justify-center mt-10">
             <input type="text" class="fuente-medium text-center h-12 w-56 bg-teal-100 placeholder1 border-2 border-teal-100 focus:border-teal-800 focus:text-teal-800" placeholder="Nombre de usuario" name="username">
@@ -101,10 +103,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
             </div>
         <?php endif; ?>
 
-        <!-- Error Todos los campos son obligatorios -->
+        <!-- Error Todos los campos son obligatorios
             <div class="flex justify-center mt-5">
                 <p class="fuente-bold text-red-700">Todos los campos son obligatorios</p>
             </div>
+        -->
 
         <div class="flex justify-center mt-10">
             <input type="submit" class="fuente-bold text-center h-12 w-56 bg-teal-800 text-teal-100 hover:bg-teal-200 hover:text-teal-800" value="Iniciar sesión">

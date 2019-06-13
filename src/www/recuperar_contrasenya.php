@@ -64,14 +64,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                   $subject = 'Tu solicitud de cambio de contraseña!';
                   $body = '<h1>Hola '. $findByEmail['username'] .'!</h1>'.
                   '<p>Pulsa el siguiente enlace para cambiar tu contraseña:</p>'.
-                  '<a href="'.$url.'?token='. $findByEmail['id'].'_'. $findByEmail['token'] . '">Enlace</a>';
+                  '<a href="'.$url.'?token='. $findByEmail['id'].'_'. $usuarioDAO->token . '">Enlace</a>';
                   
                   //Lo enviamos
                   enviar_correo($from,$to,$to_name,$body,$subject);
 
                   //Lo redirigimos al... ok
                   header('Location: ok-recuperar-contrasenya.php');
-                  
+                  die();
                 }
               
         }; 

@@ -1,6 +1,10 @@
 <?php
-    require_once('head.php');
-    require_once('menu.php');
+    require_once('../../head.php');
+    require_once('../../menu.php');
+
+    session_start();
+    if (!isset($_SESSION['email'])) header('Location: login.php');
+
 ?>
 
         <section class="h-screen bg-teal-100 m-0 flex items-center flex-col fuente-medium">
